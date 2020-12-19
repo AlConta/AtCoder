@@ -1,5 +1,6 @@
 ﻿#include<iostream>
 #include<vector>
+#include<algorithm>
 using namespace std;
 
 #define rep(i, a, b) for(int i = a; i < b; i++)
@@ -29,21 +30,21 @@ constexpr ll AMAX = 2e5;
 int main() {
     int N;
     cin >> N;
-    vector<ll> vecA(AMAX);
+    vector<ll> vecA;
 
     Rep(i, 1, N) {
-        cin >> vecA[i];
+        int a;
+        cin >> a; 
+        vecA.push_back(a);
     }
-
+    sort(vecA.begin(), vecA.end());
     ll total = 0;
-    Rep(i, 1, N) {
-        Rep(j, 1, N) {
-            if (i < j) {
-                total += llabs(vecA[i] - vecA[j]);
-            }
-        }
+    ll lastS = 0;
+    rep(i, 0, N) {
+        total += vecA[i] * i;
+        total -= lastS;
+        lastS += vecA[i];
     }
-
 
     cout << total << "\n";
     return 0;
